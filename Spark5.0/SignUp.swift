@@ -24,7 +24,7 @@ struct SignUp: View {
                     .offset(x: -30)
 
                 VStack {
-                    TextField("enter your email", text: $email)
+                    TextField("enter your email", text: $email) //takes email input from user 
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -35,7 +35,7 @@ struct SignUp: View {
                         .offset(y: 80)
                         .shadow(color: .black, radius: 1)
 
-                    TextField("enter your username", text: $username)
+                    TextField("enter your username", text: $username) //takes username input from user 
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -45,7 +45,7 @@ struct SignUp: View {
                         .offset(y: 80)
                         .shadow(color: .black, radius: 1)
 
-                    SecureField("enter your password", text: $password)
+                    SecureField("enter your password", text: $password) //takes password input from user 
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -54,7 +54,7 @@ struct SignUp: View {
                         .offset(y: 80)
                         .shadow(color: .black, radius: 1)
 
-                    SecureField("confirm your password", text: $confirmPassword)
+                    SecureField("confirm your password", text: $confirmPassword) //takes password input from user again 
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
