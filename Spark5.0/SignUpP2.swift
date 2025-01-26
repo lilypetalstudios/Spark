@@ -25,7 +25,7 @@ struct SignUpP2: View {
                     Spacer().frame(height: 260)
 
                
-                    TextEditor(text: $bio)
+                    TextEditor(text: $bio) //asks user to provide some information about themselves (hobbies, fun facts, etc.) 
                         .frame(width: 300, height: 50)
                         .padding()
                         .background(Color.white)
@@ -43,7 +43,7 @@ struct SignUpP2: View {
                     Spacer().frame(height: 20)
 
                  
-                    TextEditor(text: $accomplishments)
+                    TextEditor(text: $accomplishments) //asks user to input any accomplishments to let other users know their academic strengths 
                         .frame(width: 300, height: 50)
                         .padding()
                         .background(Color.white)
@@ -61,7 +61,7 @@ struct SignUpP2: View {
                     Spacer().frame(height: 20)
 
                  
-                    TextEditor(text: $strengths)
+                    TextEditor(text: $strengths) //asks user to input any academic strengths or interests they may have 
                         .frame(width: 300, height: 50)
                         .padding()
                         .background(Color.white)
@@ -79,7 +79,7 @@ struct SignUpP2: View {
                     Spacer().frame(height: 20)
 
                  
-                    TextEditor(text: $weaknesses)
+                    TextEditor(text: $weaknesses) //asks user to input any academic weaknesses they may have 
                         .frame(width: 300, height: 50)
                         .padding()
                         .background(Color.white)
