@@ -3,7 +3,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseAuth
 
-struct User: Identifiable {
+struct User: Identifiable { 
     var id: String
     var username: String
     var bio: String
@@ -48,7 +48,7 @@ struct MatchView: View {
                                             image
                                                 .resizable()
                                                 .scaledToFill()
-                                                .frame(width: 100, height: 100) // Avatar size
+                                                .frame(width: 100, height: 100) 
                                                 .clipShape(Circle())
                                                 .padding(.top)
                                         case .failure:
@@ -205,18 +205,18 @@ struct MatchView: View {
         
     }
 
-    private func swipeLeft(user: User) {
+    private func swipeLeft(user: User) { //when a user isn't interested in studying with another user 
         updateSwipes(user: user, direction: "left")
         moveToNextUser()
     }
 
-    private func swipeRight(user: User) {
+    private func swipeRight(user: User) { //when a user wants to study with another user
         updateSwipes(user: user, direction: "right")
         ChatManager.shared.checkForMatchAndCreateChat(for: user)
         moveToNextUser()
     }
 
-    private func moveToNextUser() {
+    private func moveToNextUser() { 
         if currentIndex < users.count {
             users.remove(at: currentIndex)
         }
@@ -244,7 +244,7 @@ struct MatchView: View {
         }
     }
 
-    private func checkForMatch(user: User) {
+    private func checkForMatch(user: User) { //checks to see if both users approved each other 
         guard let currentUser = Auth.auth().currentUser else { return }
         let db = Firestore.firestore()
         db.collection("users").document(user.id).getDocument { document, error in
@@ -259,7 +259,7 @@ struct MatchView: View {
         }
     }
 
-    private func createChat(with otherUserId: String) {
+    private func createChat(with otherUserId: String) { //run when user successfully creates a match (both users approve each other) 
         guard let currentUser = Auth.auth().currentUser else { return }
         let db = Firestore.firestore()
         let chatId = UUID().uuidString
