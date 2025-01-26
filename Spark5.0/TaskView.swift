@@ -4,28 +4,28 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
-enum TaskDifficulty: String, CaseIterable, Identifiable {
-    case easy = "easy"
+enum TaskDifficulty: String, CaseIterable, Identifiable { //users can define the difficulty level of the task, and the higher the difficulty, the more points the user gets for completing the task 
+    case easy = "easy" 
     case medium = "medium"
     case hard = "hard"
     
     var id: String { self.rawValue }
     var points: Int {
         switch self {
-        case .easy: return 5
-        case .medium: return 10
-        case .hard: return 20
+        case .easy: return 5 //completing easy tasks earns 5 points
+        case .medium: return 10 //completing medium tasks earns 10 points
+        case .hard: return 20 //completing hard tasks earns 20 points 
         }
     }
 }
 
 struct Task: Identifiable {
     let id: UUID
-    var title: String
-    var deadline: Date
-    var priority: Color
-    var difficulty: TaskDifficulty
-    var isCompleted: Bool
+    var title: String //users can set names for the tasks
+    var deadline: Date //users can set deadlines for the tasks
+    var priority: Color //the difficulty of the task is represented by a color (green = easy, yellow = medium, red = hard)
+    var difficulty: TaskDifficulty //users can set difficulty levels for the tasks
+    var isCompleted: Bool //checks whether or not the task is completed
 }
 
 class TaskStore: ObservableObject {
@@ -58,14 +58,14 @@ class TaskStore: ObservableObject {
         }
     }
 
-    func addTask(title: String, deadline: Date, priority: Color, difficulty: TaskDifficulty) {
+    func addTask(title: String, deadline: Date, priority: Color, difficulty: TaskDifficulty) { //enables users to add tasks 
         let newTask = Task(id: UUID(), title: title, deadline: deadline, priority: priority, difficulty: difficulty, isCompleted: false)
         tasks.append(newTask)
        
         saveTasks()
     }
 
-    func editTask(task: Task, newTitle: String, newDeadline: Date, newPriority: Color, newDifficulty: TaskDifficulty) {
+    func editTask(task: Task, newTitle: String, newDeadline: Date, newPriority: Color, newDifficulty: TaskDifficulty) { //enables users to edit tasks 
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks[index].title = newTitle
             tasks[index].deadline = newDeadline
@@ -75,14 +75,14 @@ class TaskStore: ObservableObject {
         }
     }
 
-    func deleteTask(task: Task) {
+    func deleteTask(task: Task) { //enables users to delete tasks
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks.remove(at: index)
             saveTasks()
         }
     }
 
-    func toggleCompletion(task: Task) {
+    func toggleCompletion(task: Task) { //enables users to mark tasks as done 
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks[index].isCompleted.toggle()
             
@@ -96,7 +96,7 @@ class TaskStore: ObservableObject {
         }
     }
 
-    private func loadTasks() {
+    private func loadTasks() { //displays the tasks 
         guard let userId = userId else { return }
 
         let userRef = db.collection("users").document(userId)
@@ -119,7 +119,7 @@ class TaskStore: ObservableObject {
         }
     }
 
-    private func saveTasks() {
+    private func saveTasks() { //enables users to save the task
         guard let userId = userId else { return }
         
         let userRef = db.collection("users").document(userId)
@@ -145,7 +145,7 @@ class TaskStore: ObservableObject {
         }
     }
 
-    private func updateTotalPoints() {
+    private func updateTotalPoints() { //updates edits the user makes 
         totalPoints = tasks.filter { $0.isCompleted }.reduce(0) { $0 + $1.difficulty.points }
         saveTasks()
     }
@@ -244,7 +244,7 @@ struct TaskView: View {
     }
 }
 
-struct AddTaskView: View {
+struct AddTaskView: View { //view that pops up when the user wants to add tasks
     @ObservedObject var taskStore: TaskStore
     @State private var newTaskTitle: String = ""
     @State private var newTaskDeadline: Date = Date()
@@ -299,7 +299,7 @@ struct AddTaskView: View {
     }
 }
 
-struct EditTaskView: View {
+struct EditTaskView: View { //view that pops up when the user wants to edit the task 
     @ObservedObject var taskStore: TaskStore
     var task: Task
     @State private var updatedTitle: String = ""
