@@ -1,1 +1,1 @@
-Spark is a productivity app designed to help students improve academic performance. It includes features such as match-making, task managing, leaderboard, and earning points, to make learning more engaging.
+
